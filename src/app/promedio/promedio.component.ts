@@ -17,11 +17,23 @@ export class PromedioComponent implements OnInit {
     private isLogged: boolean;
     private dataUser: any;
     public archivos: any = [];
+    public tmp: any = [];
+    public noAmigos : any = [];
+    public searchText: any;
     public guardararchivo: SubirArchivo = {
         archivo: "",
         dir: "",
         tipo: 0,
         user: 0,
+    };
+    public eliminarArchivo: EliminarArchivo = {
+        IdArchivo:0
+    };
+
+    public modificarArchivo: ModificarArchivo = {
+        IdArchivo:0,
+        nombre:"",
+        tipo: -1
     };
     // archivos publicos
     public archivosPublicos: any = [];
@@ -38,6 +50,7 @@ export class PromedioComponent implements OnInit {
             this.dataUser = JSON.parse(localStorage.getItem("token") || "{}");
             console.log(this.dataUser)
             this.listaArchivos();
+            this.listarnoAmigos();
         } else {
             localStorage.removeItem("token");
         }
@@ -113,6 +126,7 @@ export class PromedioComponent implements OnInit {
                 const {estado} = res;
                 if (estado == 1 ){
                     alert("Archivo guardado con exito");
+                    this.listaArchivos()
                 }
                 else{
                     alert("Error al guardar el archivo, intente mas tarde");
@@ -132,12 +146,146 @@ export class PromedioComponent implements OnInit {
                 console.log(res);
                 const {archivo} = res;
                 if (archivo.length > 0){
-                    this.archivosPrivados  =archivo.filter(arch =>arch.Tipo = 0);
-                    this.archivosPublicos =  archivo.filter(arch =>arch.Tipo = 1);
+                    this.archivosPrivados  =archivo.filter(arch =>arch.Tipo == 0);
+                    this.archivosPublicos =  archivo.filter(arch =>arch.Tipo == 1);
                 
                 }
                 //this.archivosPublicos = res.archivosPublicos;
                 //this.archivosPrivados = res.archivosPrivados;
+            },
+            (err: any) => {
+                console.log(err);
+            }
+        );
+    }
+
+    // --------------------------------- SECCION ELIMAR ARCHIVO ------------------------------
+    updateEliminarArchivo(idArchivo: any) {
+        this.eliminarArchivo.IdArchivo = Number(idArchivo);
+        console.log(this.eliminarArchivo)
+    }
+    confirmarEliminacion() {
+        console.log(this.eliminarArchivo)
+        // verificar que se haya seleccinado un archivo
+        if (this.eliminarArchivo.IdArchivo == 0) {
+            alert("Seleccione un archivo para eliminar");
+            return;
+        }
+        // verificar que la contraseña sea correcta
+        if (this.password != this.dataUser.Pass) {
+            alert("Las contraseñas no coinciden, vuela a ingresar su contraseña");
+            return;
+        }
+        this._servicio.eliminarArchivo(this.eliminarArchivo).subscribe(
+            (res: any) => {
+                console.log(res);
+                const {estado} = res;
+                if (estado == 1 ){
+                    alert("Archivo Eliminado con exito");
+                    this.listaArchivos()
+                }
+                else{
+                    alert("Error al Eliminar el archivo, intente mas tarde");
+                    this.listaArchivos()
+                }
+            },
+            (err: any) => {
+                console.log(err);
+            }
+        );
+
+    }
+
+    // --------------------------------- SECCION EDITAR  ARCHIVO ------------------------------
+    updateIdModificarArchivo(idArchivo: any) {
+        this.modificarArchivo.IdArchivo = Number(idArchivo);
+        if(this.archivosPrivados.filter(arch =>arch.IdArchivo == idArchivo).length > 0){
+                this.tmp = this.archivosPrivados.filter(arch =>arch.IdArchivo == idArchivo);
+                this.modificarArchivo.nombre = this.tmp[0].NombreArchivo;
+                this.modificarArchivo.tipo = this.tmp[0].Tipo;
+        }
+        else{
+            this.tmp = this.archivosPublicos.filter(arch =>arch.IdArchivo == idArchivo);
+            this.modificarArchivo.nombre = this.tmp[0].NombreArchivo;
+            this.modificarArchivo.tipo = this.tmp[0].Tipo;
+        }
+        console.log(this.modificarArchivo)
+    }
+    updateTipoModificarArchivo(tipo: any) {
+        this.modificarArchivo.tipo = Number(tipo);
+        console.log(this.modificarArchivo)
+    }
+
+    confirmarModificacion() {
+        console.log(this.eliminarArchivo)
+        // verificar que se haya seleccinado un archivo
+        if (this.modificarArchivo.IdArchivo == 0) {
+            alert("Seleccione un archivo a modificar");
+            return;
+        }
+        if (this.modificarArchivo.nombre =="") {
+            alert("Ingrese un nombre para el archivo");
+            return;
+        }
+        // verificar que la contraseña sea correcta
+        if (this.password != this.dataUser.Pass) {
+            alert("Las contraseñas no coinciden, vuela a ingresar su contraseña");
+            return;
+        }
+        
+        this._servicio.modificarArchivo(this.modificarArchivo).subscribe(
+            (res: any) => {
+                console.log(res);
+                const {estado} = res;
+                if (estado == 1 ){
+                    alert("Archivo Modificado con éxito");
+                    this.listaArchivos()
+                }
+                else{
+                    alert("Error al Modificar el archivo, intente más tarde");
+                    this.listaArchivos()
+                }
+            },
+            (err: any) => {
+                console.log(err);
+            }
+        );   
+    }
+
+     // --------------------------------- SECCION AMIGOS ------------------------------
+
+     // listar amigos 
+
+     listarnoAmigos(){
+        this._servicio.listanoAmigos({IdUser:this.dataUser.idUser}).subscribe(
+            (res: any) => {
+                console.log(res);
+                const {noamigos} = res;
+                if (noamigos.length > 0){
+                    this.noAmigos = noamigos;
+                }              
+            },
+            (err: any) => {
+                console.log(err);
+            }
+        );
+    }
+
+
+    AgregarAmigos(amigo:any){
+        console.log(amigo);
+        this._servicio.agregarAmigo({idusuario:this.dataUser.idUser,idamigo:Number(amigo)}).subscribe(
+            (res: any) => {
+                console.log(res);
+                const {estado} = res;
+                if (estado == 1 ){
+                    alert("Amigo Agregado con éxito");
+                    this.listarnoAmigos()
+                }
+                else{
+                    alert("Error al Agregar el amigo, intente más tarde");
+                    this.listarnoAmigos()
+                }
             },
             (err: any) => {
                 console.log(err);
@@ -151,5 +299,15 @@ interface SubirArchivo {
     dir: string;
     tipo: Number;
     user: Number;
+}
+
+interface EliminarArchivo {
+    IdArchivo: Number
+}
+
+interface ModificarArchivo {
+    IdArchivo: Number,
+    nombre: string,
+    tipo: Number
 }
 // console.log(' this.banks.length es->',this.banks.length);

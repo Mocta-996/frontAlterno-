@@ -37,25 +37,22 @@
           <div *ngFor="let list of archivosPrivados" class="content">
             <table>
               <tr>
-                <td>Nombre </td>
-                <td class="padded"> {{list.Nombre}}</td>
+                <td>Nombre:  </td>
+                <td class="padded"> {{list.NombreArchivo}}</td>
               </tr>
               <tr>
-                <td>Propietario </td>
-                <td class="padded"> {{list.Propietario}}</td>
+                <td>Propietario:  </td>
+                <td class="padded">   {{dataUser.Usuario}}</td>
               </tr>
               <tr>
-                <td>Fecha </td>
+                <td>Fecha:  </td>
                 <td class="padded"> {{list.Fecha}}</td>
               </tr>
               <tr>
-                <td>Ruta </td>
-                <td class="padded"> {{list.Ruta}}</td>
+                <td>Ruta:  </td>
+                <td class="padded"> {{list.Direccion}}</td>
               </tr>
             </table>
-
-
-
           </div>
         </div>
       </div>
@@ -63,17 +60,13 @@
         <div class="card card-user">
           <div class="image">
           </div>
-
-
           <div class="content">
             <div class="author">
               <a href="#">
-                <img class="avatar border-gray" src="assets/img/faces/descarga.png" alt="..." />
-
-
+                <img class="avatar border-gray"  src="{{dataUser.Fotografia}}"   />
               </a>
             </div>
-            <p class="description text-center"> username
+            <p class="description text-center"> {{dataUser.Nombre}}
             </p>
 
 
@@ -110,7 +103,7 @@
             <div class="row" style="margin-left: 100px;margin-top: 10px;">
               <div class="col-md-5">
                 <div class="form-group">
-                  <button style="width: 160px;" (click)="veramigos()"
+                  <button style="width: 160px;" data-toggle="modal" data-target="#ModaleAgregarAmigos"
                     class="btn btn-success btn-fill pull-right">Agregar amigo</button>
                 </div>
               </div>
@@ -125,10 +118,6 @@
               </div>
 
             </div>
-
-
-
-
           </div>
           <hr>
 
@@ -147,9 +136,55 @@
   </div>
 </div>
 
+<!-- ---------------------------- Modal PARA AGREGAR AMIGOS ------------------------->
+ 
+<div class="modal fade" id="ModaleAgregarAmigos" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Agregar Amigos</h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-name">
+          <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="on" placeholder=" SEARCH  ">
+        </div>
+          <ul *ngFor="let noAm of noAmigos ">
+            <br/>
+            <table>
+              <tr>
+                <td>
+                  <a href="#">
+                    <img class="imgRedonda"  src="{{noAm.foto}}"    />
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td><b> Usuario: </b> </td>
+                <td class="padded">   {{noAm.user}}</td>
+              </tr>
+              <tr>
+                <td><b>Archivos Publicos: </b>   </td>
+                <td class="padded">  {{noAm.cantidad}}</td>
+              </tr>
+              <tr>
+                <td><button style="width: 160px;" class="btn btn-success btn-fill pull-right" (click)="AgregarAmigos(noAm.id_usuario)">
+                  Agregar amigo
+                </button>  </td>
+              </tr>
+            </table>
+           
+          </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-<!-- 
+<!-- ---------------------------- Modal PARA MODIFICAR ARCHIVO -----------------------  -->
+ 
 <div class="modal fade" id="exampleModaleditar" data-backdrop="false">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -163,10 +198,10 @@
             <div class="col-md-5">
               <div class="form-group">
                 Elegir archivo privado a editar
-                <select #cricket [(ngModel)]="option" (change)="updatefile('privado')">
+                <select #cricket [(ngModel)]="option" (change)="updateIdModificarArchivo(option)">
                   <option value="default">----</option>
-                  <option *ngFor="let player of privado" [value]="player.Nombre">
-                    {{player.Nombre}}
+                  <option *ngFor="let player of archivosPrivados" [value]="player.IdArchivo">
+                    {{player.NombreArchivo}}
                   </option>
                 </select>
               </div>
@@ -178,10 +213,10 @@
             <div class="col-md-5">
               <div class="form-group">
                 Elegir archivo publico a editar
-                <select #cricket [(ngModel)]="option" (change)="updatefile('publico')">
+                <select #cricket [(ngModel)]="option" (change)="updateIdModificarArchivo(option)">
                   <option value="default">----</option>
-                  <option *ngFor="let player of publico" [value]="player.Nombre">
-                    {{player.Nombre}}
+                  <option *ngFor="let player of archivosPublicos" [value]="player.IdArchivo">
+                    {{player.NombreArchivo}}
                   </option>
                 </select>
               </div>
@@ -192,26 +227,23 @@
           <div class="col-md-5">
             <div class="form-group">
               <label>Nombre</label>
-              <input type="text" class="form-control" name="Name" [(ngModel)]="Name" value={{Name}}
-                placeholder="Nombre">
+              <input type="text" class="form-control" name="Name" [(ngModel)]="modificarArchivo.nombre" value={{modificarArchivo.nombre}}
+                placeholder={{modificarArchivo.nombre}}>
             </div>
           </div>
 
         </div>
         <div class="row" style="margin-left: 100px;margin-top: 10px;">
-          <p> Adjuntar archivo/imagen </p>
-          <input #file type="file" id="img" accept='image/*' (change)="preview(file.files)" />
           <div class="form-group">
-
             <div class="form-check">
-              <input class="form-check-input" (change)="checkif('publico')" type="radio" name="flexRadioDefault"
+              <input class="form-check-input" (change)="updateTipoModificarArchivo(1)" type="radio" name="flexRadioDefault"
                 id="flexRadioDefault1">
               <label class="form-check-label" for="flexRadioDefault1">
                 Publico
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" (change)="checkif('privado')" type="radio" name="flexRadioDefault"
+              <input class="form-check-input" (change)="updateTipoModificarArchivo(0)" type="radio" name="flexRadioDefault"
                 id="flexRadioDefault2" checked>
               <label class="form-check-label" for="flexRadioDefault2">
                 Privado
@@ -220,13 +252,13 @@
           </div>
           <div class="form-group">
             <label>Contraseña</label>
-            <input type="password" class="form-control" name="Password" [(ngModel)]="Password" value={{Password}}
+            <input type="password" class="form-control" name="password" [(ngModel)]="password" value={{password}}
               placeholder="Password">
           </div>
 
           <div class="col-md-5">
             <div class="form-group">
-              <button style="width: 160px;" (click)="editararchivo()" class="btn btn-success btn-fill pull-right">Editar
+              <button style="width: 160px;" (click)="confirmarModificacion()" class="btn btn-success btn-fill pull-right">Editar
               </button>
             </div>
           </div>
@@ -239,7 +271,7 @@
   </div>
 </div>
 
--->
+
 
 <!-- ---------------------------- Modal PARA GUARDAR ARCHIVO -----------------------  -->
 <div class="modal fade" id="exampleModal" data-backdrop="false">
@@ -271,7 +303,7 @@
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" (change)="checkif(0)" type="radio" name="flexRadioDefault"
+              <input class="form-check-input" (change)="tipoArchivo(1)" type="radio" name="flexRadioDefault"
                 id="flexRadioDefault2" checked>
               <label class="form-check-label" for="flexRadioDefault2">
                 Privado
@@ -301,8 +333,8 @@
   </div>
 </div>
 
+<!-- ---------------------------- Modal PARA ELIMINAR ARCHIVO -----------------------  -->
 
-<!-- 
 <div class="modal fade" id="exampleModalEliminar" data-backdrop="false">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -310,19 +342,17 @@
         <h4>Eliminar archivo</h4>
       </div>
       <div class="modal-body">
-
-
         <div class="card card-user">
 
-          <h3>Elige el archivo a eliminar {{optionname}}</h3>
+          <h3>Elige el archivo a eliminar </h3>
           <div class="row" style="margin-left: 100px;margin-top: 10px;">
             <div class="col-md-5">
               <div class="form-group">
                 Elegir archivo privado
-                <select #cricket [(ngModel)]="optionname" (change)="update($event,'privado')">
+                <select #cricket [(ngModel)]="optionname" (change)="updateEliminarArchivo(optionname)">
                   <option value="default">----</option>
-                  <option *ngFor="let player of privado" [value]="player.Nombre">
-                    {{player.Nombre}}
+                  <option *ngFor="let player of archivosPrivados" [value]="player.IdArchivo">
+                    {{player.NombreArchivo}}
                   </option>
                 </select>
               </div>
@@ -337,10 +367,10 @@
             <div class="col-md-5">
               <div class="form-group">
                 Elegir archivo publico
-                <select #cricket [(ngModel)]="optionname" (change)="update($event,'publico')">
+                <select #cricket [(ngModel)]="optionname" (change)="updateEliminarArchivo(optionname)">
                   <option value="default">----</option>
-                  <option *ngFor="let player of publico" [value]="player.Nombre">
-                    {{player.Nombre}}
+                  <option *ngFor="let player of publico" [value]="player.IdArchivo">
+                    {{player.NombreArchivo}}
                   </option>
                 </select>
               </div>
@@ -353,14 +383,14 @@
 
         <div class="form-group">
           <label>Contraseña</label>
-          <input type="password" class="form-control" name="Password" [(ngModel)]="Password" value={{Password}}
+          <input type="password" class="form-control" name="password" [(ngModel)]="password" value={{password}}
             placeholder="Password">
         </div>
 
 
         <div class="col-md-5">
           <div class="form-group">
-            <button style="width: 160px;" (click)="Eliminar()" class="btn btn-danger btn-fill pull-right">Eliminar
+            <button style="width: 160px;" (click)="confirmarEliminacion()" class="btn btn-danger btn-fill pull-right">Eliminar
             </button>
           </div>
         </div>
@@ -371,4 +401,3 @@
     </div>
   </div>
 </div>
--->

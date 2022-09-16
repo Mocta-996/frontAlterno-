@@ -104,3 +104,11 @@
   background-color: #2E2C2E;
   color: white;
 }
+
+
+.imgRedonda {
+  width:100px;
+  height:100px;
+  border-radius:150px;
+  border:10px solid #666;
+}

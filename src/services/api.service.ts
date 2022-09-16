@@ -42,6 +42,33 @@ export class ApiService {
     return this.http.post(`${this.URI}/listararchivo`,data);
   }
 
+  // eliminar archivo
+
+  eliminarArchivo(data: any) {
+    return this.http.post(`${this.URI}/eliminararchivo`,data);
+  }
+
+  
+  // modificar archivo
+  modificarArchivo(data: any) {
+    return this.http.post(`${this.URI}/editarfile`,data);
+  }
+
+  // listar no amgigos
+  listanoAmigos(data: any) {
+    return this.http.post(`${this.URI}/findfriend`,data);
+  }
+
+   // agregar amigos
+  agregarAmigo(data: any) {
+    return this.http.post(`${this.URI}/newfriend`,data);
+  }
+
+  // agregar amigos
+  listaArchivosamigo(data: any) {
+    return this.http.post(`${this.URI}/listararchivoamigo`,data);
+  }
+
 
 }
 

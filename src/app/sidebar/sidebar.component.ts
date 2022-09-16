@@ -9,8 +9,8 @@ declare interface RouteInfo {
 }
 export const ROUTESLOGGED: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard',  icon: 'pe-7s-graph', class: '' },
-  { path: '/user', title: 'Editar perfil',  icon:'pe-7s-user', class: '' },
-  { path: '/profile', title: 'Mi perfil',  icon:'pe-7s-user', class: '' },    
+  //{ path: '/user', title: 'Editar perfil',  icon:'pe-7s-user', class: '' },
+  { path: '/profile', title: 'Ver Archivos',  icon:'pe-7s-user', class: '' },    
   { path: '/promedio', title: 'Archivos del usuario',  icon:'pe-7s-news-paper', class: '' },   
 ];
 export const ROUTESLOGOUT: RouteInfo[] = [

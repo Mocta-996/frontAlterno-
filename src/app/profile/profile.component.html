@@ -1,125 +1,84 @@
-
-
-
-
-<div class="main-content" >
+<div class="main-content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Mi perfil</h4>
+                        <h4 class="title">Ver Archivos de amigos</h4>
                     </div>
-                    <div class="content">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <div class="row" style="margin-left: 4px;margin-top: 0px;">  
-
-                                        <div  #topElement class="form-group">
-                                            <label>Username</label>
-                                            <input type="text"(change)="checkif()"  readonly class="form-control" name="Username"  [(ngModel)]="Username" value={{Username}} >
-                                        </div>
-                                    </div>
-                                    <div class="row">   
-                                        <span class="label label-info">{{UsernamemessageAlert}}</span>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-5">
-                                    <div class="row">   
-                                        <div class="col-md-5">      
-                                            <button    (click)="Edit($event, false)"class="btn btn-{{Edittype}} btn-fill pull-right">{{Edittext}}</button>
-                                        </div>
-                                        <div  [style.visibility]="buttonupdate"class="col-md-5">
-                                                <button  (click)="Update($event, false)"class="btn btn-info btn-fill pull-right">Update</button>
-                                        </div>
-
-
-
-                                    </div>
-                                  
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-
-                                <div class="col-md-5">                                    
-                                    <div class="form-group">
-                                        <label>Nombre</label>
-                                        <input type="text"name="FirstName"   [(readonly)]="booledit"class="form-control"  [(ngModel)]="FirstName" value={{FirstName}}>
-
-                                    </div>
-                                </div>
-                                            
-                            </div>
-                      
-
-                  
-  
-               
-                            <div *ngIf="edited"  class="row" >
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Contraseña</label>
-                                        <input type="password" (change)="checkpass()" class="form-control" name="Password"  [(ngModel)]="Password" value={{Password}}  placeholder="Password" >
-                                    </div>
-                                </div>
-
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Repetir contraseña</label>
-                                        <input type="password"(change)="checkpass()"  class="form-control" name="Password2"  [(ngModel)]="Password2" value={{Password2}}  placeholder="Password2" >
-                                    </div>
-                                </div>
-
-                            </div>
-                            <span class="label label-danger">{{passmessageAlert}}</span>
-
-                           
-                  
-                            <div class="clearfix"></div>
-                        </form>
+                    <div *ngFor="let list of archivos" class="content">
+                        <table>
+                            <tr>
+                                <td>Nombre: </td>
+                                <td class="padded"> {{list.nombreArchivo}}</td>
+                            </tr>
+                            <tr>
+                                <td>Propietario: </td>
+                                <td class="padded"> {{list.user}}</td>
+                            </tr>
+                            <tr>
+                                <td>Fecha: </td>
+                                <td class="padded"> {{list.fechaArchivo}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button style="width: 160px;" class="btn btn-success btn-fill pull-right" (click)="AgregarAmigos(noAm.id_usuario)">
+                                        Ver archivo
+                                      </button>
+                                </td>
+                               
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+        </div>
+    </div>
+</div>
 
+<!-- ---------------------------- Modal PARA AGREGAR AMIGOS ------------------------->
 
-
-                <div class="card card-user">
-                    <div class="image">
-                        <!-- <img src="https://image.shutterstock.com/image-vector/blank-avatar-photo-icon-design-260nw-1682415103.jpg" alt="..."/> -->
-                        <!-- <img [src]="imgURL" height="200" width="200"   *ngIf="imgURL"> -->
-                        <!-- <img class="avatar border-gray" src="assets/img/faces/descarga.png" alt="..."/> -->
-
-                                        </div>
-    
-                        <div class="content">
-                            <div class="author">
-                                <a href="#">
-                                    <img class="avatar border-gray" src="assets/img/faces/descarga.png" alt="..."/>
-        
-                                    <h4 class="title">{{nombre}}<br />
-                                        <small>{{username}}</small>
-                                        <button (click)="baja()"  class="btn btn-danger btn-fill pull-right">Dar de baja</button>
-        
-                                    </h4>
-                                </a>
-                            </div>
-                            <p class="description text-center"> {{Username}}
-                            </p>
-        
-                        </div>
-
-
-
-                    <hr>
-                    <div class="text-center">
-                    </div>
+<div class="modal fade" id="ModaleAgregarAmigos" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Agregar Amigos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="search-name">
+                    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="on"
+                        placeholder=" SEARCH  ">
                 </div>
+                <ul *ngFor="let noAm of noAmigos ">
+                    <br />
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="#">
+                                    <img class="imgRedonda" src="{{noAm.foto}}" />
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b> Usuario: </b> </td>
+                            <td class="padded"> {{noAm.user}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Archivos Publicos: </b> </td>
+                            <td class="padded"> {{noAm.cantidad}}</td>
+                        </tr>
+                        <tr>
+                            <td><button style="width: 160px;" class="btn btn-success btn-fill pull-right"
+                                    (click)="AgregarAmigos(noAm.id_usuario)">
+                                    Agregar amigo
+                                </button> </td>
+                        </tr>
+                    </table>
+
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

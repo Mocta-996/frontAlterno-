@@ -30,9 +30,6 @@ import { CreateComponent } from './create/create.component';
 // import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environment/environment';
 import { FirebaseService } from '../services/firebase.service';
-// import { AngularFireStorageModule } from 'angularfire2/storage';
-// import { AngularFirestoreModule } from 'angularfire2/firestore';
-// import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -41,6 +38,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // SERVICIOS
 
 import {ApiService } from '../services/api.service';
@@ -63,18 +61,8 @@ import {ApiService } from '../services/api.service';
     MatInputModule,
     MatFormFieldModule,
     MatCardModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, // firestore
-    AngularFireAuthModule, // auth
-    AngularFireStorageModule // storage
-    //,MAT_DIALOG_DATA, MatDialogRef
-
-    // AngularFireStorageModule,
-    // AngularFireModule.initializeApp(environment.firebase),
-    // AngularFirestoreModule,
-    // AngularFireAuthModule
-
-    // Md5
+    AngularFireStorageModule,
+    Ng2SearchPipeModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 
