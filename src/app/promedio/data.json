@@ -1,0 +1,94 @@
+{
+    "Archivos": [
+        {         
+  
+            "Usuario": "user1",
+            "_id": "002221",            
+            "privados": [
+                        {
+                            
+                                    "Nombre": "file2.jpg",
+                                    "Propietario": "user1",
+                                    "Fecha": "30-05-2011",
+                                    "Ruta":"https://amazonbucket/file2.jpg"
+                                
+                         },
+                          
+                         {
+                                    "Nombre": "myfile2334.pdf",
+                                    "Propietario": "user1",
+                                    "Fecha": "30-05-2012",
+                                    "Ruta":"https://amazonbucket/myfile2334.pdf"
+
+                               
+                            
+                        }
+             ],
+            "publicos": [
+                        {
+                                      "Nombre": "file1.jpg",
+                                    "Propietario": "user1",
+                                    "Fecha": "30-05-2001",
+                                    "Ruta":"https://amazonbucket/file1.jpg"
+                                
+                         }
+                        ,{
+                                    "Nombre": "myfile233.pdf",
+                                    "Propietario": "user1",
+                                    "Fecha": "30-05-2002",
+                                    "Ruta":"https://amazonbucket/myfile233.pdf"
+
+                         }
+                            
+                        
+              ]
+ 
+        },
+        {
+            "Usuario": "user2",
+            "_id": "00222142",          
+             "privados": [
+                        {
+                          
+                                    "Nombre": "file24.jpg",
+                                    "Propietario": "user2",
+                                    "Fecha": "30-05-2044",
+                                    "Ruta":"https://amazonbucket/file24.jpg"
+                                
+                                }
+                            ,
+                            {
+                                    "Nombre": "myfile23346.pdf",
+                                    "Propietario": "user2",
+                                    "Fecha": "30-05-2016",
+                                    "Ruta":"https://amazonbucket/myfile23346.pdf"
+
+                                }
+                            
+                        
+                 ],
+                 "publicos": [
+                        {
+                            
+                                    "Nombre": "file1t.jpg",
+                                    "Propietario": "user2",
+                                    "Fecha": "30-05-2014",
+                                    "Ruta":"https://amazonbucket/file1t.jpg"
+                                
+                                }
+                            ,
+                            {
+                                    "Nombre": "myfile2338.pdf",
+                                    "Propietario": "user2",
+                                    "Fecha": "30-05-2013",
+                                    "Ruta":"https://amazonbucket/myfile2338.pdf"
+
+                                }
+                            
+                        
+                ]
+             
+        }
+      
+    ]
+}

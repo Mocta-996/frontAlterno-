@@ -1,0 +1,374 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Documentos Publicos</h4>
+          </div>
+          <div *ngFor="let list of archivosPublicos" class="content">
+            <table>
+              <tr>
+                <td>Nombre:  </td>
+                <td class="padded"> {{list.NombreArchivo}}</td>
+              </tr>
+              <tr>
+                <td>Propietario:  </td>
+                <td class="padded">   {{dataUser.Usuario}}</td>
+              </tr>
+              <tr>
+                <td>Fecha:  </td>
+                <td class="padded"> {{list.Fecha}}</td>
+              </tr>
+              <tr>
+                <td>Ruta:  </td>
+                <td class="padded"> {{list.Direccion}}</td>
+              </tr>
+            </table>
+
+
+
+          </div>
+        </div>
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Privados</h4>
+          </div>
+          <div *ngFor="let list of archivosPrivados" class="content">
+            <table>
+              <tr>
+                <td>Nombre </td>
+                <td class="padded"> {{list.Nombre}}</td>
+              </tr>
+              <tr>
+                <td>Propietario </td>
+                <td class="padded"> {{list.Propietario}}</td>
+              </tr>
+              <tr>
+                <td>Fecha </td>
+                <td class="padded"> {{list.Fecha}}</td>
+              </tr>
+              <tr>
+                <td>Ruta </td>
+                <td class="padded"> {{list.Ruta}}</td>
+              </tr>
+            </table>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-user">
+          <div class="image">
+          </div>
+
+
+          <div class="content">
+            <div class="author">
+              <a href="#">
+                <img class="avatar border-gray" src="assets/img/faces/descarga.png" alt="..." />
+
+
+              </a>
+            </div>
+            <p class="description text-center"> username
+            </p>
+
+
+
+
+            <div class="row" style="margin-left: 100px;margin-top: 10px;">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <button style="width: 160px;" data-toggle="modal" data-target="#exampleModal"
+                    class="btn btn-success btn-fill pull-right">Subir archivo</button>
+                </div>
+              </div>
+
+            </div>
+            <div class="row" style="margin-left: 100px;margin-top: 10px;">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <button style="width: 160px;" data-toggle="modal" data-target="#exampleModaleditar"
+                    class="btn btn-success btn-fill pull-right">Editar archivo</button>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="row" style="margin-left: 100px;margin-top: 10px;">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <button style="width: 160px;" data-toggle="modal" data-target="#exampleModalEliminar"
+                    class="btn btn-danger btn-fill pull-right">Eliminar archivo</button>
+                </div>
+              </div>
+
+            </div>
+            <div class="row" style="margin-left: 100px;margin-top: 10px;">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <button style="width: 160px;" (click)="veramigos()"
+                    class="btn btn-success btn-fill pull-right">Agregar amigo</button>
+                </div>
+              </div>
+
+            </div>
+            <div class="row" style="margin-left: 100px;margin-top: 10px;">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <button style="width: 160px;" (click)="verarchivos()" class="btn btn-info btn-fill pull-right">ver
+                    archivos</button>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+          </div>
+          <hr>
+
+
+
+
+
+          <div class="text-center">
+            <!-- Modal -->
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 
+<div class="modal fade" id="exampleModaleditar" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Editar archivo</h4>
+      </div>
+      <div class="modal-body">
+        <div class="card card-user">
+          <h3>Elige el archivo {{option}}</h3>
+          <div class="row" style="margin-left: 100px;margin-top: 10px;">
+            <div class="col-md-5">
+              <div class="form-group">
+                Elegir archivo privado a editar
+                <select #cricket [(ngModel)]="option" (change)="updatefile('privado')">
+                  <option value="default">----</option>
+                  <option *ngFor="let player of privado" [value]="player.Nombre">
+                    {{player.Nombre}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-user">
+          <div class="row" style="margin-left: 100px;margin-top: 10px;">
+            <div class="col-md-5">
+              <div class="form-group">
+                Elegir archivo publico a editar
+                <select #cricket [(ngModel)]="option" (change)="updatefile('publico')">
+                  <option value="default">----</option>
+                  <option *ngFor="let player of publico" [value]="player.Nombre">
+                    {{player.Nombre}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" class="form-control" name="Name" [(ngModel)]="Name" value={{Name}}
+                placeholder="Nombre">
+            </div>
+          </div>
+
+        </div>
+        <div class="row" style="margin-left: 100px;margin-top: 10px;">
+          <p> Adjuntar archivo/imagen </p>
+          <input #file type="file" id="img" accept='image/*' (change)="preview(file.files)" />
+          <div class="form-group">
+
+            <div class="form-check">
+              <input class="form-check-input" (change)="checkif('publico')" type="radio" name="flexRadioDefault"
+                id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Publico
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" (change)="checkif('privado')" type="radio" name="flexRadioDefault"
+                id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                Privado
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" name="Password" [(ngModel)]="Password" value={{Password}}
+              placeholder="Password">
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <button style="width: 160px;" (click)="editararchivo()" class="btn btn-success btn-fill pull-right">Editar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+-->
+
+<!-- ---------------------------- Modal PARA GUARDAR ARCHIVO -----------------------  -->
+<div class="modal fade" id="exampleModal" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Subir archivo</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" class="form-control" name="Name" [(ngModel)]="guardararchivo.archivo" value={{guardararchivo.archivox}}
+                placeholder="Nombre">
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-left: 20px;">
+          <p> Adjuntar archivo </p>
+          <input #file type="file" id="img" accept=
+          "text/plain, application/pdf, image/*" (change)="capturarFile($event)" />
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" (change)="tipoArchivo(1)" type="radio" name="flexRadioDefault"
+                id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Publico
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" (change)="checkif(0)" type="radio" name="flexRadioDefault"
+                id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                Privado
+              </label>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" name="Password" [(ngModel)]="password" value={{password}}
+              placeholder="Password">
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <button style="width: 160px;" (click)="guardarFile()" class="btn btn-success btn-fill pull-right">Subir
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 
+<div class="modal fade" id="exampleModalEliminar" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Eliminar archivo</h4>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="card card-user">
+
+          <h3>Elige el archivo a eliminar {{optionname}}</h3>
+          <div class="row" style="margin-left: 100px;margin-top: 10px;">
+            <div class="col-md-5">
+              <div class="form-group">
+                Elegir archivo privado
+                <select #cricket [(ngModel)]="optionname" (change)="update($event,'privado')">
+                  <option value="default">----</option>
+                  <option *ngFor="let player of privado" [value]="player.Nombre">
+                    {{player.Nombre}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="card card-user">
+
+
+          <div class="row" style="margin-left: 100px;margin-top: 10px;">
+            <div class="col-md-5">
+              <div class="form-group">
+                Elegir archivo publico
+                <select #cricket [(ngModel)]="optionname" (change)="update($event,'publico')">
+                  <option value="default">----</option>
+                  <option *ngFor="let player of publico" [value]="player.Nombre">
+                    {{player.Nombre}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" class="form-control" name="Password" [(ngModel)]="Password" value={{Password}}
+            placeholder="Password">
+        </div>
+
+
+        <div class="col-md-5">
+          <div class="form-group">
+            <button style="width: 160px;" (click)="Eliminar()" class="btn btn-danger btn-fill pull-right">Eliminar
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->

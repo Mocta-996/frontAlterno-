@@ -1,0 +1,109 @@
+
+<div>
+    <div>
+        <div class="row">
+            <div>
+                <div class="card">
+                    <div class="header text-center">
+                        <h4 class="title">Promedio de Bancos del sistema </h4>
+                        <p class="category">Del ultimo año.</p>
+                        <br>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+  
+    </div>
+  </div>
+  
+  
+  
+  <div class="text-center">
+  
+    <select class="form-control" (ngModelChange)="changedvalue()"   name="selectedbank" [(ngModel)]="selectedbank"  required>
+      <option *ngFor="let list of priorityList" [value]="list.value">
+        {{list.label}}
+      </option>
+  </select>
+  
+  <button type="button" (click)="Graficar()"  class="btn btn-success">Graficar</button>
+  
+  
+  </div>
+  
+  <div class="aline">
+  
+    <lbd-chart
+    [title]="'Promedio de Ranking Bancario'"
+    [subtitle]="'en rango de Abril 2020 a Abril 2021'"
+    [chartType]="hoursChartType"
+    [chartData]="hoursChartData"
+    [chartOptions]="hoursChartOptions"
+    [chartResponsive]="hoursChartResponsive"
+    [legendItems]="hoursChartLegendItems"
+    [withHr]="true"
+    [footerIconClass]="'fa fa-history'"
+    [footerText]="">
+    </lbd-chart>
+    {{footer}}
+  </div>
+  
+  
+  
+  
+  
+  <div class="container" *ngIf="visiblehide">
+    <h3>Bancos</h3>
+    <ul class="list-group">
+      <li class="list-group-item  uno">{{banks[0]}}</li>
+      <li class="list-group-item  dos">{{banks[1]}}</li>
+      <li class="list-group-item tres">{{banks[2]}}</li>
+      <li class="list-group-item t4">{{banks[3]}}</li>
+      <li class="list-group-item t5">{{banks[4]}}</li>
+      <li class="list-group-item t6">{{banks[5]}}</li>
+      <li class="list-group-item t7">{{banks[6]}}</li>
+      <li class="list-group-item t8">{{banks[7]}}</li>
+      <li class="list-group-item  t9">{{banks[8]}}</li>
+      <li class="list-group-item  t10">{{banks[9]}}</li>
+      <li class="list-group-item t11">{{banks[10]}}</li>
+      <li class="list-group-item t12">{{banks[11]}}</li>
+      <li class="list-group-item t13">{{banks[12]}}</li>
+      <li class="list-group-item t14">{{banks[13]}}</li>
+      <li class="list-group-item t15">{{banks[14]}}</li>
+      <li class="list-group-item t16">{{banks[15]}}</li>
+    </ul>
+    </div>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+
+
+

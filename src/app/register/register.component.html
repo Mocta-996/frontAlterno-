@@ -1,0 +1,84 @@
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Crear Usuario</h4>
+                    </div>
+                    <div class="content">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div  #topElement class="form-group">
+                                        <label>Usuario</label>
+                                        <input type="text" class="form-control"  name="Username"  [(ngModel)]="datosUsuario.Usuario" value={{datosUsuario.Usuario}} placeholder="Username" required >
+                                    </div>
+                                    <span class="label label-danger">{{UsernamemessageAlert}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" name="FirstName"  [(ngModel)]="datosUsuario.Nombre" value={{datosUsuario.Nombre}}  placeholder="Name"  required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="inputEmail4" class="form-label">Correo</label>
+                                        <input #email="ngModel" name="email" [(ngModel)]="datosUsuario.Correo"   type="email" class="form-control" id="correo" placeholder="email@email.com" required>
+                            
+                                    </div>
+                                </div>
+                            </div>
+                         
+
+                         
+                            <div class="row">
+
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input type="password" (change)="checkpass()" class="form-control" name="Password"  [(ngModel)]="datosUsuario.Pass" value={{datosUsuario.Pass}}  placeholder="Password"  required >
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Repetir contraseña</label>
+                                        <input type="password"(change)="checkpass()" class="form-control" name="Password2"  [(ngModel)]="Password2" value={{Password2}}  placeholder="Password2" required >
+                                    </div>
+                                </div>
+
+                            </div>
+                            <span class="label label-danger">{{passmessageAlert}}</span>
+
+                    
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Agregar fotografía </label>
+                                        <input #file type="file" id="img" class="form-control"  accept='image/*' (change)="capturarFile($event)" required /> 
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group"  *ngIf="previsualizacion">
+                                        <img [src]="previsualizacion"  class='imgRedonda'  > 
+                                        {{rutaarchivo}}   
+                                    </div>
+                                </div>                                 
+                            </div>
+                            <button (click)="Register()"  class="btn btn-info btn-fill pull-right">Register</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
